@@ -48,7 +48,7 @@ while True:
     initial_filter_field.send_keys(position)
     initial_filter_field.send_keys(Keys.ENTER)
     drWait(ch_driver, 3)
-    time.sleep(2)
+    time.sleep(2)  # This wait seems to be crucial - learned the hard way
 
     # Web page is ready, let's collect needed information
     try:
@@ -91,17 +91,12 @@ def scrape_the_page():
         sel_salary_tax = sel_first_part + str(i) + ']/a/div[2]/div[2]/span/span/span/span[2]'
 
         vacancy = ch_driver.find_element(By.XPATH, sel_vacancy_name).text
-        # drWait(ch_driver, 1)
         vacancy_link = ch_driver.find_element(By.XPATH, sel_vacancy_link).get_attribute('href')
-        # drWait(ch_driver, 1)
         company_name = ch_driver.find_element(By.XPATH, sel_company_name).text
-        # drWait(ch_driver, 1)
 
         try:  # sometimes salaries are missing, need to handle exception
             salary_range = ch_driver.find_element(By.XPATH, sel_salary_range).text
-            # drWait(ch_driver, 1)
             salary_cur = ch_driver.find_element(By.XPATH, sel_salary_cur).text
-            # drWait(ch_driver, 1)
             salary_tax = ch_driver.find_element(By.XPATH, sel_salary_tax).text
         except NoSuchElementException:
             salary_range = "n/a"
@@ -125,11 +120,11 @@ if num_pages > 1:
         # Open the next page
         url_to_open = curr_page_url + '&page=' + str(page)
         ch_driver.get(url_to_open)
-        drWait(ch_driver, 2)
+        drWait(ch_driver, 2)  # Very important to give timeout
         scrape_the_page()
         page += 1
 
-# Let's write to csv file
+# Let's write to csv file with encoding suitable for Excel
 with open('output\\scraping_results.csv', 'w', newline='', encoding='UTF-8-sig') as file:
     writer = csv.writer(file, delimiter=';')
     writer.writerow(['Vacancy', 'Company', 'Salary range', 'Curr', 'Brutto/netto', 'Link'])
