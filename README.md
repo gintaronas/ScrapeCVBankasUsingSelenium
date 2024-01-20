@@ -10,7 +10,7 @@ in "output" directory. CSV file then can be further manipulated using Excel.
 
 INSTALLATION
 
-Project requires Chrome web driver to be installed in \.venv\driver directory.
+Project requires Chrome web driver to be installed in .\venv\driver directory.
 Version of driver must match the version of Chrome browser in use. Drivers can be found here:
 https://googlechromelabs.github.io/chrome-for-testing/
 Use "pip install -r requirements.txt" to set up the needed virtual environment.
@@ -18,3 +18,5 @@ Use "pip install -r requirements.txt" to set up the needed virtual environment.
 USE
 
 Start the main.py, wait for driver initialisation, then input the desired position and enjoy!
+The best demonstration goes by searching for "Projektų vadovas" as it returns >200 results, 
+therefore scraping continues on next pages.  

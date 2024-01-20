@@ -36,7 +36,7 @@ sutinku_button.click()
 
 # Working window can be maximized or minimized to your choice
 # ch_driver.maximize_window()
-ch_driver.minimize_window()
+# ch_driver.minimize_window()
 
 # Let's make the filter for position with user input
 while True:
@@ -79,7 +79,8 @@ print(f'Total advertisements found: {adv_found_count[0]}')
 print(f'Total number of returned pages : {num_pages}')
 # input("Please press Enter to continue!")
 
-def scrape_the_page(max_search):
+
+def scrape_the_page():
     for i in range(1, max_search):
         sel_first_part = '/html/body/div[1]/div/div/main/div/article['
         sel_vacancy_name = sel_first_part + str(i) + ']/a/div[2]/div[1]/h3'
@@ -107,7 +108,6 @@ def scrape_the_page(max_search):
             salary_cur = "n/a"
             salary_tax = "n/a"
 
-
         # Here we define the output
         print(f'{vacancy}, {company_name}, {salary_range} {salary_cur}, {salary_tax}, Daugiau: {vacancy_link}')
         results.append((vacancy, company_name, salary_range, salary_cur, salary_tax, vacancy_link))
@@ -115,7 +115,7 @@ def scrape_the_page(max_search):
 
 
 results = []
-scrape_the_page(max_search)  # calling function for the first page
+scrape_the_page()  # calling function for the first page
 
 # Let's scrape the remaining pages
 if num_pages > 1:
@@ -126,7 +126,7 @@ if num_pages > 1:
         url_to_open = curr_page_url + '&page=' + str(page)
         ch_driver.get(url_to_open)
         drWait(ch_driver, 2)
-        scrape_the_page(max_search)
+        scrape_the_page()
         page += 1
 
 # Let's write to csv file
